@@ -1,0 +1,1406 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MathMaster | Maths Practice</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fffaf5;
+            color: #222;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: linear-gradient(135deg, #ff6b00, #ff8c00);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #fff4e6;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffe0c2;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 450px;
+            background:
+                radial-gradient(circle at 90% 20%, #ffe1c2 0 80px, transparent 81px),
+                radial-gradient(circle at 10% 90%, #ffd0a3 0 100px, transparent 101px),
+                white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 8%;
+            gap: 40px;
+        }
+
+        .hero-text {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .orange {
+            color: #ff6b00;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .start-btn {
+            background: #ff6b00;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #e85d00;
+            transform: scale(1.05);
+        }
+
+        .math-symbols {
+            font-size: 110px;
+            color: #ff6b00;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* ================= GENERAL ================= */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        section {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 45px;
+        }
+
+        .section-title span {
+            color: #ff6b00;
+        }
+
+        /* ================= FORMULA CARDS ================= */
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .formula-card {
+            background: white;
+            border: 2px solid #ffe0c2;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 5px 20px rgba(255,107,0,0.08);
+            transition: 0.3s;
+        }
+
+        .formula-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(255,107,0,0.15);
+        }
+
+        .formula-card h3 {
+            color: #ff6b00;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .formula {
+            background: #fff3e6;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 21px;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+            color: #222;
+        }
+
+        .formula-card ul {
+            padding-left: 20px;
+            color: #555;
+        }
+
+        .example {
+            margin-top: 15px;
+            background: #fff8f0;
+            padding: 12px;
+            border-left: 4px solid #ff6b00;
+        }
+
+        /* ================= QUIZ ================= */
+
+        #quiz {
+            background: #fff0e1;
+        }
+
+        .quiz-box {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            border-radius: 22px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .quiz-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .question-number {
+            color: #ff6b00;
+            font-weight: bold;
+        }
+
+        .difficulty {
+            background: #fff0e1;
+            color: #ff6b00;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question {
+            font-size: 34px;
+            text-align: center;
+            margin: 35px 0;
+            font-weight: bold;
+        }
+
+        .answer-area {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #answerInput {
+            width: 300px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 20px;
+            text-align: center;
+            outline: none;
+        }
+
+        #answerInput:focus {
+            border-color: #ff6b00;
+        }
+
+        .submit-btn {
+            background: #ff6b00;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .submit-btn:hover {
+            background: #e85d00;
+        }
+
+        .feedback {
+            text-align: center;
+            font-size: 20px;
+            min-height: 35px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .next-btn {
+            display: none;
+            margin: 15px auto;
+            background: #222;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* ================= STATS ================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .stat {
+            background: #fff8f0;
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat h3 {
+            color: #ff6b00;
+            font-size: 27px;
+        }
+
+        .stat p {
+            color: #666;
+        }
+
+        /* ================= RATING ================= */
+
+        .rating-section {
+            background: white;
+            text-align: center;
+        }
+
+        .rating-box {
+            max-width: 800px;
+            margin: auto;
+            background: #fff7ef;
+            border: 2px solid #ffd5ad;
+            border-radius: 20px;
+            padding: 35px;
+        }
+
+        .rating-number {
+            font-size: 60px;
+            font-weight: bold;
+            color: #ff6b00;
+        }
+
+        .rating-level {
+            font-size: 25px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .rating-description {
+            color: #555;
+            font-size: 17px;
+        }
+
+        .rating-bar {
+            width: 100%;
+            height: 18px;
+            background: #eee;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 25px;
+        }
+
+        .rating-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff6b00, #ffae42);
+            transition: width 0.5s;
+        }
+
+        .honest-note {
+            margin-top: 20px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #ff6b00;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 850px) {
+
+            .formula-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .math-symbols {
+                font-size: 70px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .answer-area {
+                flex-direction: column;
+            }
+
+            #answerInput {
+                width: 100%;
+            }
+
+            .submit-btn {
+                width: 100%;
+            }
+
+            .question {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        Math<span>Master</span> 🧮
+    </div>
+
+    <nav>
+        <a href="#formulas">Formulas</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#rating">Rating</a>
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-text">
+
+        <h1>
+            Master Your
+            <span class="orange">Maths Skills</span>
+        </h1>
+
+        <p>
+            Practice additions, subtractions and fractions.
+            Take an unlimited quiz and discover your real maths level.
+        </p>
+
+        <button class="start-btn" onclick="startQuiz()">
+            Start Infinite Quiz →
+        </button>
+
+    </div>
+
+    <div class="math-symbols">
+        + − × ÷
+    </div>
+
+</section>
+
+
+<!-- ================= FORMULAS ================= -->
+
+<section id="formulas">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Maths <span>Formulas</span>
+        </h2>
+
+
+        <div class="formula-grid">
+
+            <!-- ADDITION -->
+
+            <div class="formula-card">
+
+                <h3>➕ Addition</h3>
+
+                <p>
+                    Addition combines two or more numbers.
+                </p>
+
+                <div class="formula">
+                    a + b = c
+                </div>
+
+                <ul>
+                    <li>a and b are numbers being added.</li>
+                    <li>c is the sum.</li>
+                </ul>
+
+                <div class="example">
+                    <b>Example:</b><br>
+                    7 + 5 = 12
+                </div>
+
+            </div>
+
+
+            <!-- SUBTRACTION -->
+
+            <div class="formula-card">
+
+                <h3>➖ Subtraction</h3>
+
+                <p>
+                    Subtraction finds the difference between numbers.
+                </p>
+
+                <div class="formula">
+                    a − b = c
+                </div>
+
+                <ul>
+                    <li>a is the minuend.</li>
+                    <li>b is the number being subtracted.</li>
+                    <li>c is the difference.</li>
+                </ul>
+
+                <div class="example">
+                    <b>Example:</b><br>
+                    15 − 6 = 9
+                </div>
+
+            </div>
+
+
+            <!-- FRACTIONS -->
+
+            <div class="formula-card">
+
+                <h3>🍕 Fractions</h3>
+
+                <p>
+                    A fraction represents part of a whole.
+                </p>
+
+                <div class="formula">
+                    Fraction = Numerator / Denominator
+                </div>
+
+                <ul>
+                    <li>Numerator = top number.</li>
+                    <li>Denominator = bottom number.</li>
+                    <li>Denominator cannot be zero.</li>
+                </ul>
+
+                <div class="example">
+                    <b>Example:</b><br>
+                    3/4 means 3 parts out of 4.
+                </div>
+
+            </div>
+
+
+            <!-- ADDING FRACTIONS -->
+
+            <div class="formula-card">
+
+                <h3>➕ Adding Fractions</h3>
+
+                <div class="formula">
+                    a/b + c/d = (ad + bc) / bd
+                </div>
+
+                <div class="example">
+                    <b>Example:</b><br><br>
+
+                    1/2 + 1/4<br>
+                    = 2/4 + 1/4<br>
+                    = <b>3/4</b>
+                </div>
+
+            </div>
+
+
+            <!-- SUBTRACTING FRACTIONS -->
+
+            <div class="formula-card">
+
+                <h3>➖ Subtracting Fractions</h3>
+
+                <div class="formula">
+                    a/b − c/d = (ad − bc) / bd
+                </div>
+
+                <div class="example">
+                    <b>Example:</b><br><br>
+
+                    3/4 − 1/4<br>
+                    = <b>2/4 = 1/2</b>
+                </div>
+
+            </div>
+
+
+            <!-- EQUIVALENT FRACTIONS -->
+
+            <div class="formula-card">
+
+                <h3>🔄 Equivalent Fractions</h3>
+
+                <div class="formula">
+                    a/b = (a × n)/(b × n)
+                </div>
+
+                <div class="example">
+                    <b>Example:</b><br><br>
+
+                    1/2 = 2/4 = 3/6 = 4/8
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= QUIZ ================= -->
+
+<section id="quiz">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            ♾️ Infinite <span>Math Quiz</span>
+        </h2>
+
+        <div class="quiz-box">
+
+            <div class="quiz-top">
+
+                <div class="question-number">
+                    Question <span id="questionNumber">0</span>
+                </div>
+
+                <div class="difficulty" id="difficulty">
+                    Ready
+                </div>
+
+            </div>
+
+
+            <div class="question" id="question">
+                Click "Start Infinite Quiz" to begin.
+            </div>
+
+
+            <div class="answer-area">
+
+                <input
+                    type="text"
+                    id="answerInput"
+                    placeholder="Enter your answer"
+                    autocomplete="off"
+                >
+
+                <button
+                    class="submit-btn"
+                    onclick="checkAnswer()"
+                >
+                    Check Answer
+                </button>
+
+            </div>
+
+
+            <div class="feedback" id="feedback"></div>
+
+
+            <button
+                class="next-btn"
+                id="nextButton"
+                onclick="nextQuestion()"
+            >
+                Next Question →
+            </button>
+
+
+            <!-- STATS -->
+
+            <div class="stats">
+
+                <div class="stat">
+                    <h3 id="total">0</h3>
+                    <p>Questions</p>
+                </div>
+
+                <div class="stat">
+                    <h3 id="correct">0</h3>
+                    <p>Correct</p>
+                </div>
+
+                <div class="stat">
+                    <h3 id="accuracy">0%</h3>
+                    <p>Accuracy</p>
+                </div>
+
+                <div class="stat">
+                    <h3 id="streak">0</h3>
+                    <p>Streak</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RATING ================= -->
+
+<section id="rating" class="rating-section">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            ⭐ Your Maths <span>Rating</span>
+        </h2>
+
+        <div class="rating-box">
+
+            <div class="rating-number" id="ratingNumber">
+                0/100
+            </div>
+
+            <div class="rating-level" id="ratingLevel">
+                Not Rated Yet
+            </div>
+
+            <p class="rating-description" id="ratingDescription">
+                Answer some questions to receive your maths rating.
+            </p>
+
+            <div class="rating-bar">
+                <div
+                    class="rating-progress"
+                    id="ratingProgress">
+                </div>
+            </div>
+
+            <p class="honest-note">
+                Your rating is calculated from your actual quiz
+                performance — accuracy and number of questions answered.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h3>MathMaster 🧮</h3>
+
+    <p>
+        Practice • Improve • Master
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   MATH QUIZ VARIABLES
+===================================================== */
+
+let questionNumber = 0;
+let totalQuestions = 0;
+let correctAnswers = 0;
+let streak = 0;
+
+let currentAnswer = null;
+let currentType = "";
+
+let answered = false;
+
+
+/* =====================================================
+   START QUIZ
+===================================================== */
+
+function startQuiz() {
+
+    questionNumber = 0;
+    totalQuestions = 0;
+    correctAnswers = 0;
+    streak = 0;
+
+    updateStats();
+
+    document.getElementById("quiz").scrollIntoView({
+        behavior: "smooth"
+    });
+
+    nextQuestion();
+}
+
+
+/* =====================================================
+   RANDOM NUMBER
+===================================================== */
+
+function randomNumber(min, max) {
+
+    return Math.floor(
+        Math.random() * (max - min + 1)
+    ) + min;
+
+}
+
+
+/* =====================================================
+   GCD FOR FRACTIONS
+===================================================== */
+
+function gcd(a, b) {
+
+    a = Math.abs(a);
+    b = Math.abs(b);
+
+    while (b !== 0) {
+
+        let temp = b;
+
+        b = a % b;
+        a = temp;
+
+    }
+
+    return a;
+}
+
+
+/* =====================================================
+   GENERATE QUESTION
+===================================================== */
+
+function generateQuestion() {
+
+    /*
+       Difficulty increases with question number.
+    */
+
+    let difficultyLevel;
+
+    if (questionNumber <= 5) {
+
+        difficultyLevel = 1;
+
+    } else if (questionNumber <= 15) {
+
+        difficultyLevel = 2;
+
+    } else if (questionNumber <= 30) {
+
+        difficultyLevel = 3;
+
+    } else {
+
+        difficultyLevel = 4;
+
+    }
+
+
+    /*
+       Choose random topic:
+       Addition
+       Subtraction
+       Fractions
+    */
+
+    let topic = randomNumber(1, 3);
+
+
+    /* ================= ADDITION ================= */
+
+    if (topic === 1) {
+
+        let max;
+
+        if (difficultyLevel === 1)
+            max = 20;
+
+        else if (difficultyLevel === 2)
+            max = 100;
+
+        else if (difficultyLevel === 3)
+            max = 500;
+
+        else
+            max = 2000;
+
+
+        let a = randomNumber(1, max);
+        let b = randomNumber(1, max);
+
+        currentAnswer = a + b;
+        currentType = "Addition";
+
+        return {
+            text: `${a} + ${b} = ?`,
+            difficulty: difficultyLevel
+        };
+
+    }
+
+
+    /* ================= SUBTRACTION ================= */
+
+    if (topic === 2) {
+
+        let max;
+
+        if (difficultyLevel === 1)
+            max = 20;
+
+        else if (difficultyLevel === 2)
+            max = 100;
+
+        else if (difficultyLevel === 3)
+            max = 500;
+
+        else
+            max = 2000;
+
+
+        let a = randomNumber(1, max);
+        let b = randomNumber(1, a);
+
+        currentAnswer = a - b;
+        currentType = "Subtraction";
+
+        return {
+            text: `${a} − ${b} = ?`,
+            difficulty: difficultyLevel
+        };
+
+    }
+
+
+    /* ================= FRACTIONS ================= */
+
+    let denominator1 = randomNumber(2, 12);
+    let denominator2 = randomNumber(2, 12);
+
+    let numerator1 = randomNumber(1, denominator1);
+    let numerator2 = randomNumber(1, denominator2);
+
+    /*
+       Use addition or subtraction.
+    */
+
+    let fractionOperation =
+        Math.random() < 0.5 ? "+" : "−";
+
+
+    let numerator;
+
+    if (fractionOperation === "+") {
+
+        numerator =
+            numerator1 * denominator2 +
+            numerator2 * denominator1;
+
+    } else {
+
+        numerator =
+            numerator1 * denominator2 -
+            numerator2 * denominator1;
+
+    }
+
+
+    let denominator =
+        denominator1 * denominator2;
+
+
+    let divisor = gcd(numerator, denominator);
+
+    let finalNumerator =
+        numerator / divisor;
+
+    let finalDenominator =
+        denominator / divisor;
+
+
+    currentAnswer =
+        finalNumerator / finalDenominator;
+
+    currentType = "Fractions";
+
+
+    return {
+
+        text:
+            `${numerator1}/${denominator1} ${fractionOperation} ` +
+            `${numerator2}/${denominator2} = ?`,
+
+        difficulty: difficultyLevel,
+
+        fractionAnswer:
+            `${finalNumerator}/${finalDenominator}`
+
+    };
+
+}
+
+
+/* =====================================================
+   NEXT QUESTION
+===================================================== */
+
+function nextQuestion() {
+
+    answered = false;
+
+    document.getElementById("feedback").textContent = "";
+
+    document.getElementById("nextButton").style.display = "none";
+
+    document.getElementById("answerInput").value = "";
+
+    document.getElementById("answerInput").disabled = false;
+
+    document.querySelector(".submit-btn").disabled = false;
+
+
+    questionNumber++;
+
+    let q = generateQuestion();
+
+
+    document.getElementById("questionNumber").textContent =
+        questionNumber;
+
+
+    document.getElementById("question").textContent =
+        q.text;
+
+
+    document.getElementById("difficulty").textContent =
+        currentType + " • Level " + q.difficulty;
+
+
+    document.getElementById("answerInput").focus();
+
+}
+
+
+/* =====================================================
+   CHECK ANSWER
+===================================================== */
+
+function checkAnswer() {
+
+    if (answered) {
+        return;
+    }
+
+
+    let input =
+        document.getElementById("answerInput")
+        .value
+        .trim();
+
+
+    if (input === "") {
+
+        document.getElementById("feedback").textContent =
+            "Please enter an answer.";
+
+        document.getElementById("feedback").style.color =
+            "#ff6b00";
+
+        return;
+    }
+
+
+    let userAnswer;
+
+
+    /*
+       Handle fractions such as 3/4
+    */
+
+    if (input.includes("/")) {
+
+        let parts = input.split("/");
+
+        if (
+            parts.length === 2 &&
+            !isNaN(parts[0]) &&
+            !isNaN(parts[1]) &&
+            Number(parts[1]) !== 0
+        ) {
+
+            userAnswer =
+                Number(parts[0]) /
+                Number(parts[1]);
+
+        } else {
+
+            userAnswer = NaN;
+
+        }
+
+    } else {
+
+        userAnswer = Number(input);
+
+    }
+
+
+    totalQuestions++;
+
+    answered = true;
+
+
+    let isCorrect =
+        Math.abs(userAnswer - currentAnswer) < 0.000001;
+
+
+    if (isCorrect) {
+
+        correctAnswers++;
+
+        streak++;
+
+
+        document.getElementById("feedback").textContent =
+            "✓ Correct! Great job!";
+
+        document.getElementById("feedback").style.color =
+            "#168a35";
+
+    } else {
+
+        streak = 0;
+
+
+        let correctDisplay;
+
+        if (Number.isInteger(currentAnswer)) {
+
+            correctDisplay = currentAnswer;
+
+        } else {
+
+            /*
+               Find a simple fraction representation.
+            */
+
+            let denominator = 1000;
+
+            let numerator =
+                Math.round(currentAnswer * denominator);
+
+            let divisor =
+                gcd(numerator, denominator);
+
+            numerator /= divisor;
+            denominator /= divisor;
+
+            correctDisplay =
+                numerator + "/" + denominator;
+
+        }
+
+
+        document.getElementById("feedback").textContent =
+            "✗ Not quite. The correct answer is " +
+            correctDisplay + ".";
+
+        document.getElementById("feedback").style.color =
+            "#d62828";
+
+    }
+
+
+    updateStats();
+
+
+    document.getElementById("nextButton").style.display =
+        "block";
+
+    document.getElementById("answerInput").disabled =
+        true;
+
+    document.querySelector(".submit-btn").disabled =
+        true;
+
+}
+
+
+/* =====================================================
+   UPDATE STATS
+===================================================== */
+
+function updateStats() {
+
+    document.getElementById("total").textContent =
+        totalQuestions;
+
+    document.getElementById("correct").textContent =
+        correctAnswers;
+
+    let accuracy =
+        totalQuestions === 0
+        ? 0
+        : Math.round(
+            (correctAnswers / totalQuestions) * 100
+        );
+
+
+    document.getElementById("accuracy").textContent =
+        accuracy + "%";
+
+
+    document.getElementById("streak").textContent =
+        streak;
+
+
+    updateRating(accuracy);
+
+}
+
+
+/* =====================================================
+   HONEST MATH RATING
+===================================================== */
+
+function updateRating(accuracy) {
+
+    /*
+       We don't give a high rating after only one question.
+
+       Confidence factor increases with the number
+       of questions answered.
+
+       Maximum confidence = 100 questions.
+    */
+
+    let confidence =
+        Math.min(totalQuestions / 100, 1);
+
+
+    /*
+       Rating combines accuracy and experience.
+
+       Example:
+
+       90% accuracy after 5 questions
+       will NOT immediately become 90/100.
+
+       The rating becomes more reliable
+       as more questions are answered.
+    */
+
+    let rating =
+        Math.round(
+            accuracy * (0.5 + confidence * 0.5)
+        );
+
+
+    /*
+       Small sample protection.
+    */
+
+    if (totalQuestions < 5) {
+
+        document.getElementById("ratingNumber").textContent =
+            "--/100";
+
+        document.getElementById("ratingLevel").textContent =
+            "Keep Practicing";
+
+        document.getElementById("ratingDescription").textContent =
+            "Answer at least 5 questions before your first rating appears.";
+
+        document.getElementById("ratingProgress").style.width =
+            "0%";
+
+        return;
+    }
+
+
+    /* ================= LEVEL ================= */
+
+    let level;
+    let description;
+
+
+    if (rating < 40) {
+
+        level = "Beginner";
+
+        description =
+            "You are building your basic maths skills. Keep practicing.";
+
+    } else if (rating < 60) {
+
+        level = "Developing";
+
+        description =
+            "You understand some fundamentals. More practice will improve your accuracy.";
+
+    } else if (rating < 75) {
+
+        level = "Intermediate";
+
+        description =
+            "You have a solid foundation. Keep working on speed and accuracy.";
+
+    } else if (rating < 90) {
+
+        level = "Advanced";
+
+        description =
+            "You are performing strongly across the quiz.";
+
+    } else {
+
+        level = "Excellent";
+
+        description =
+            "Your quiz performance is consistently very strong.";
+
+    }
+
+
+    document.getElementById("ratingNumber").textContent =
+        rating + "/100";
+
+
+    document.getElementById("ratingLevel").textContent =
+        level;
+
+
+    document.getElementById("ratingDescription").textContent =
+        description;
+
+
+    document.getElementById("ratingProgress").style.width =
+        rating + "%";
+
+}
+
+
+/* =====================================================
+   ENTER KEY SUPPORT
+===================================================== */
+
+document.getElementById("answerInput")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+
+            if (!answered) {
+
+                checkAnswer();
+
+            } else {
+
+                nextQuestion();
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
+```
